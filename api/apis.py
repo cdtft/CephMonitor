@@ -1,13 +1,14 @@
+# coding=utf-8
 from flask import Flask
 from ceph import ceph_rbd
 
 app = Flask(__name__)
 
+# 获取image的使用大小
+@app.route('/api/v1/ceph/rdb/<poolName>/<imageName>/usage', methods=['GET'])
+def getImageUsageSizeByImageName(poolName, imageName):
 
-@app.route('/api/v1/ceph/rdb/image/size', methods=['GET'])
-def getImageUsageSizeByImageName():
-    print "hello"
-    return ceph_rbd.get_image_size("k8s", "45.5")
+    return ceph_rbd.getUsedSize(poolName, imageName)
 
 
 if __name__ == '__main__':
