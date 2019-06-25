@@ -20,11 +20,12 @@ app = Flask(__name__)
 # }
 @app.route('/api/v1/ceph/rbd/<poolName>/<imageName>/usage', methods=['GET'])
 def getImageUsageSizeByImageName(poolName, imageName):
-    data = Model.ImageInfo(poolName, imageName, 10, CephRBD.getUsedSize(poolName, imageName))
+    data = Model.ImageInfo(poolName, imageName, 10,
+                           CephRBD.getUsedSize(poolName, imageName))
     return Model.buildSuccessResponse("查询成功", data.__dict__)
 
 
-@app.route('/api/v1/ceph/rbd/', )
+@app.route('/api/v1/ceph/rbd/', methods=['GET'])
 def getImageUsageSizeListByImageNameList():
 
     pass
