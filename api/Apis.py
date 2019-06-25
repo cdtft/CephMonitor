@@ -1,7 +1,7 @@
 # coding=utf-8
 from flask import Flask, jsonify
-from ceph import CephRBD
-from model import Model
+import CephRBD
+import Model
 
 app = Flask(__name__)
 
@@ -21,10 +21,7 @@ app = Flask(__name__)
 @app.route('/api/v1/ceph/rbd/<poolName>/<imageName>/usage', methods=['GET'])
 def getImageUsageSizeByImageName(poolName, imageName):
     data = Model.ImageInfo(poolName, imageName, 10, CephRBD.getUsedSize(poolName, imageName))
-    # return Model.buildSuccessResponse("查询成功", data)
-    return jsonify(data.__dict__)
-
-
+    return Model.buildSuccessResponse("查询成功", data.__dict__)
 
 
 @app.route('/api/v1/ceph/rbd/', )
