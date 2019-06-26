@@ -14,6 +14,12 @@ class ImageInfo:
         return self.poolName
 
 
+class ImageStorage:
+    def __init__(self, used, size):
+        self.used = used
+        self.size = size
+
+
 # 统一返回json结构
 def buildResponse(code, message, data):
     return jsonify({'code': code, 'message': message, 'data': data})

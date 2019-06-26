@@ -22,8 +22,9 @@ app = Flask(__name__)
 # }
 @app.route('/api/v1/ceph/rbd/<poolName>/<imageName>/usage', methods=['GET'])
 def getImageUsageSizeByImageName(poolName, imageName):
-    data = Model.ImageInfo(poolName, imageName, 10,
-                           CephRBD.getUsedSize(poolName, imageName))
+    storage = CephRBD.getUsedSize(poolName, imageName)
+    data = Model.ImageInfo(poolName, imageName, storage.size/1024**3,
+                           storage.used/1024**2)
     return Model.buildSuccessResponse("查询成功", data.__dict__)
 
 # 批量获取image使用率
